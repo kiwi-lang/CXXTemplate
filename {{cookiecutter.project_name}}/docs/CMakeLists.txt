@@ -25,7 +25,7 @@ IF(SPHINX_FOUND)
     # build documentation
     ADD_CUSTOM_TARGET(sphinx ALL
         COMMAND sphinx-build -W --color
-            -Dbreathe_projects.CatCutifier=${DOXYGEN_OUTPUT_DIR}
+            -Dbreathe_projects.{{cookiecutter.project_name}}=${DOXYGEN_OUTPUT_DIR}
             -c "${CMAKE_SOURCE_DIR}/docs/"
             -b html "${CMAKE_SOURCE_DIR}/docs/" "${CMAKE_BINARY_DIR}/docs/html")
     ADD_DEPENDENCIES(sphinx doxygen)

@@ -15,11 +15,37 @@
 import sys
 import os
 import shlex
+import subprocess
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #sys.path.insert(0, os.path.abspath('.'))
+
+docs_src_path = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.abspath(os.path.join(docs_src_path, '..'))
+doxygen_out = os.path.join(project_root, 'build', 'doxy')
+doxygen_out_xml = os.path.join(doxygen_out, 'xml')
+
+def configure_doxyfile():
+    with open('Doxyfile.in', 'r') as file :
+        filedata = file.read()
+
+    filedata = (filedata
+        .replace('@DOXYGEN_OUTPUT_DIR@', doxygen_out)
+        .replace('@CMAKE_SOURCE_DIR@', project_root)
+        .replace('@PROJECT_NAME@', 'Game Kit')
+        .replace('@rev_branch@', 'Unknown')
+    )
+
+    with open('Doxyfile', 'w') as file:
+        file.write(filedata)
+
+read_the_docs_build = os.environ.get('READTHEDOCS', None) == 'True'
+
+if read_the_docs_build:
+    configure_doxyfile()
+    subprocess.call('doxygen', shell=True)
 
 # -- General configuration ------------------------------------------------
 
@@ -36,14 +62,10 @@ extensions = [
     'breathe'
 ]
 
-docs_src_path = os.path.dirname(os.path.abspath(__file__))
-src_path = os.path.abspath(
-    os.path.join(docs_src_path, '..', 'build', 'doxy', 'xml'))
-
 # Breathe Configuration
 breathe_default_project = "{{cookiecutter.project_name}}"
 breathe_projects = {
-    '{{cookiecutter.project_name}}': src_path
+    '{{cookiecutter.project_name}}': doxygen_out_xml
 }
 
 # =================
