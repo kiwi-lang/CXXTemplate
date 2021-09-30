@@ -11,21 +11,23 @@ class SymbolicBench: public ::hayai::Fixture
 public:
     virtual void SetUp() {
 
-        mult = sym::mult(
-            sym::mult(
-                sym::mult(sym::make_val(3475), sym::make_val(5743)),
-                sym::mult(sym::make_val(3475), sym::make_val(5743))),
-            sym::mult(
-                sym::mult(sym::make_val(3475), sym::make_val(5743)),
-                sym::mult(sym::make_val(3475), sym::make_val(5743))));
+        using namespace {{cookiecutter.namespace}};
+
+        mult = mult(
+            mult(
+                mult(make_val(3475), make_val(5743)),
+                mult(make_val(3475), make_val(5743))),
+            mult(
+                mult(make_val(3475), make_val(5743)),
+                mult(make_val(3475), make_val(5743))));
     }
 
     virtual void TearDown(){
         delete mult;
     }
 
-    sym::Context c;
-    sym::ABSExpr* mult;
+    Context c;
+    ABSExpr* mult;
 };
 
 BENCHMARK_F(SymbolicBench, Mult, 10, 100)

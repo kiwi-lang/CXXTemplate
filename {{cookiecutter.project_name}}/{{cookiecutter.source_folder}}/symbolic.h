@@ -6,7 +6,7 @@
 #include <string>
 #include <memory>
 
-namespace sym
+namespace {{cookiecutter.namespace}}
 {
 
 class ABSExpr;

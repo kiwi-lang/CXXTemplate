@@ -16,7 +16,7 @@
 #include <signal.h>
 #endif
 
-namespace sym{
+namespace {{cookiecutter.namespace}} {
 #ifdef __linux__
 std::vector<std::string> get_backtrace(size_t size){
     std::vector<void *> ptrs(size);

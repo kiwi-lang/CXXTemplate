@@ -1,7 +1,7 @@
 #include "symbolic.h"
 #include <iostream>
 
-namespace sym{
+namespace {{cookiecutter.namespace}}{
 
 double Placeholder::full_eval(const Context& c)     { return c.at(_name)->full_eval(c); }
 Expr Placeholder::partial_eval(const Context& c)    {

@@ -5,6 +5,7 @@
     "copyright": "Testing",
     "source_folder": "src",
     "version_file": "version",
+    "namespace": "sym",
     "_copy_without_render": [
         "dependencies"
     ]
