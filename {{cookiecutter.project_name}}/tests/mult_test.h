@@ -5,10 +5,13 @@
 
 #include <symbolic.h>
 
+
+using namespace {{cookiecutter.namespace}};
+
 TEST(Mult, eval)
 {
-    auto f = sym::mult(sym::make_val(21), sym::make_val(32));
-    sym::Context ctx;
+    auto f = mult(make_val(21), make_val(32));
+    Context ctx;
 
     EXPECT_DOUBLE_EQ(21 * 32, f->full_eval(ctx));
 }
@@ -16,11 +19,11 @@ TEST(Mult, eval)
 // This test will fail because mult->derivate implementation is wrong
 TEST(Mult, derivate)
 {
-    auto x = sym::make_var("x");
-    auto f = sym::mult(x, sym::make_val(32));
+    auto x = make_var("x");
+    auto f = mult(x, make_val(32));
 
-    sym::Context ctx;
-    ctx["x"] = sym::make_val(2);
+    Context ctx;
+    ctx["x"] = make_val(2);
 
     auto deriv = f->derivate("x");
 

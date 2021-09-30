@@ -5,20 +5,23 @@
 
 #include <symbolic.h>
 
+
+using namespace {{cookiecutter.namespace}};
+
 TEST(add, eval)
 {
-    auto f = sym::add(sym::make_val(21), sym::make_val(32));
-    sym::Context ctx;
+    auto f = add(make_val(21), make_val(32));
+    Context ctx;
 
     EXPECT_DOUBLE_EQ(21 + 32, f->full_eval(ctx));
 }
 
 TEST(add, derivate)
 {
-    auto x = sym::make_var("x");
+    auto x = make_var("x");
 
-    auto f = sym::add(x, sym::make_val(32));
-    sym::Context ctx;
+    auto f = add(x, make_val(32));
+    Context ctx;
 
     auto deriv = f->derivate("x");
 

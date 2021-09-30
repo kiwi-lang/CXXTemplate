@@ -3,6 +3,10 @@
 
 #include <iostream>
 
+
+using namespace {{cookiecutter.namespace}};
+
+
 int main()
 {
     // Print Build info
@@ -13,23 +17,23 @@ int main()
     //  build function
     // ======================
 
-    auto x = sym::make_var("x");
-    auto y = sym::make_var("y");
+    auto x = make_var("x");
+    auto y = make_var("y");
 
             // x * y * 2
-    auto f = sym::mult(sym::mult(x, y), sym::make_val(2));
+    auto f = mult(mult(x, y), make_val(2));
 
     // print ((x * y) * 2)
-    std::cout << "Function: ";  sym::print(f);
+    std::cout << "Function: ";  print(f);
 
 
     //  full eval
     // ======================
 
     // Create a context
-    sym::Context ctx = {
-        {"x", sym::make_val(2)},
-        {"y", sym::make_val(2)}
+    Context ctx = {
+        {"x", make_val(2)},
+        {"y", make_val(2)}
     };
 
     auto ret = f->full_eval(ctx);
@@ -40,12 +44,12 @@ int main()
     // ======================
 
     // Create a context
-    sym::Context ctx2 = {
-        {"x", sym::make_val(2)}
+    Context ctx2 = {
+        {"x", make_val(2)}
     };
 
     auto partial_f = f->partial_eval(ctx2);
-    std::cout << "Partial Function: ";  sym::print(partial_f);
+    std::cout << "Partial Function: ";  print(partial_f);
 
     return 0;
 }
